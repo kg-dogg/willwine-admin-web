@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="author" content="RiseOn">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <title>瑞思智能探索之旅管理后台</title>
+
+  <link href="//cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.0/theme-chalk/index.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <% if(htmlWebpackPlugin.options.templateParameters.isProduction){ %>
+  <!-- 生产环境 -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <% } %>
+
+  <% if(!htmlWebpackPlugin.options.templateParameters.isProduction){ %>
+  <!-- 非生产环境 -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <% } %>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.0/index.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+
+  <!-- <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
+  <!-- <script src="//cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
+
+
+  <!-- <script src="/static/plugins/toastr/toastr.min.js"></script> -->
+  <!-- <script src="/static/plugins/waves/waves.js"></script> -->
+
+  <!-- iconfont在线引用 -->
+  <script src="//at.alicdn.com/t/font_855262_4ldn53dskys.js"></script>
+  <!-- built files will be auto injected -->
+
+  <script>
+    (function (doc, win) {
+      const reFontSize = function () {
+        const clientW = doc.documentElement.clientWidth || doc.body.clientWidth;
+        if (!clientW) {
+          return;
+        }
+        const html = doc.getElementsByTagName("html")[0];
+        let fontSize = 20 * (clientW / 1920);
+        if(fontSize > 20 ){
+            fontSize = 20; // 最大就20吧
+        }
+        // 按照 1920 设计稿 = 20 px 基础
+        html.style.fontSize = fontSize + "px";
+      };
+      win.addEventListener("resize", reFontSize);
+      // DOMContentLoaded->dom加载完就执行,onload要dom/css/js都加载完才执行
+      doc.addEventListener("DOMContentLoaded", reFontSize);
+    })(document, window);
+
+  </script>
+  <!-- <script src="/js/lang"></script> -->
+</body>
+
+</html>

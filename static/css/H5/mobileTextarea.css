@@ -1,0 +1,107 @@
+
+html{
+  color: #3D6DA0;
+  font-size: 14px;
+  word-wrap:break-word;
+  overflow-wrap: break-word;
+  -webkit-text-size-adjust: none;
+}
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+body.prism-full-window{ /*手机 切换回非全屏时body高度变为0bug*/
+  height: auto;
+  margin: 8px;
+}
+p {
+  font-weight:500;
+  min-height: 26px;
+  line-height: 26px;
+}
+.videoWrapper{
+  width: 327px;
+  height: 192px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 2px solid #CFF7FF;
+}
+.videoWrapper.prism-fullscreen {
+  border: none;
+}
+.videoWrapper .prism-cover {
+  border-radius: 5px;
+}
+.prism-player .prism-big-play-btn {
+  height: 54px;
+  width: 54px;
+  background: #FFDB47;
+  border-radius: 100%;
+  box-shadow: 0px 2px 0px 0px #EB8F21;
+}
+.prism-player .prism-big-play-btn .outter {
+  width: 0;
+  height: 0;
+  border-width: 12px 0 12px 16px;
+  border-style: solid;
+  border-color: transparent transparent transparent #EB9621;
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 5px);
+  border-radius: 2px;
+}
+.prism-player .prism-big-play-btn .outter::after {
+  width: 0;
+  height: 0;
+  border-width: 12px 0 12px 17px;
+  border-style: solid;
+  border-color: transparent transparent transparent #fff;
+  position: absolute;
+  border-radius: 2px;
+  top: calc(50% - 13px);
+  left: calc(50% - 17px);
+  display: block;
+  content: '';
+}
+.audio-wrap {
+  background-size: cover !important;
+  vertical-align: sub;
+  width: 28px !important;
+  height: 26px !important;
+  outline: none;
+}
+.prism-player .prism-progress .prism-progress-time {
+  display: none;
+}
+.videoWrapper .reverseBtn {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  z-index: 100;
+  top: 12px;
+  right: 12px;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 0;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  background-color: transparent;
+
+}
+.prism-fullscreen .reverseBtn{
+    width: 38px;
+    height: 38px;
+}
+video.reverse {
+    transform-origin:25% 25%; 
+    -ms-transform-origin:25% 25%; 	/* IE 9 */
+    -moz-transform-origin:25% 25%; 	/* Firefox */
+    -webkit-transform-origin:25% 25%; /* Safari 和 Chrome */
+    -o-transform-origin:25% 25%; 
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); 	/* IE 9 */
+    -moz-transform:rotate(180deg); 	/* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg); 
+}
