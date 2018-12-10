@@ -92,345 +92,8 @@ export const constantRouterMap = [
 ]
 
 export const asyncRouterMap = [
-  // 新课程
+  // 渠道管理
   {
-    path: '/curriculum'
-    , component: Layout
-    , redirect: '/curriculum/index'
-    , name: 'curriculum'
-    , meta: {
-      title: '课程管理'
-      , icon: 'curriculum'
-      , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , role: [ 'course_manager', 'job_manager' ]
-    }
-    , children: [ {
-      path: 'index'
-      , name: 'curriculumIndex'
-      , component: () =>
-        import ( '@/views/curriculum/index' )
-      , meta: {
-        title: '班型列表'
-        , icon: 'classlist'
-      }
-    , }, {
-      path: 'course/:id'
-      , name: 'editCourseBase'
-      , component: () =>
-        import ( '@/views/curriculum/course' )
-      , hidden: true
-    , }, {
-      path: 'course_res/:id'
-      , name: 'editCourseRes'
-      , component: () =>
-        import ( '@/views/curriculum/course_edit' )
-      , hidden: true
-    , }, {
-      path: 'homework/:id'
-      , name: 'homeworkList'
-      , component: () =>
-        import ( '@/views/curriculum/homework' )
-      , hidden: true
-      , meta: {
-        title: '作业管理'
-        , icon: 'coursemanagement'
-        , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      }
-    , }, {
-      path: 'homework/:id/add'
-      , name: 'addHomework'
-      , component: () =>
-        import ( '@/views/curriculum/homework/add/index' )
-      , meta: {
-        title: '创建作业'
-        , icon: 'coursemanagement'
-        , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      }
-      , hidden: true
-    , }, {
-      path: 'homework/:id/modify'
-      , name: 'modifyHomework'
-      , component: () =>
-        import ( '@/views/curriculum/homework/add' )
-      , meta: {
-        title: '编辑作业'
-        , icon: 'coursemanagement'
-        , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      }
-      , hidden: true
-    , }, {
-      path: 'homework/:id/view'
-      , name: 'viewHomework'
-      , component: () =>
-        import ( '@/views/curriculum/homework/view' )
-      , meta: {
-        title: '查看作业'
-        , icon: 'coursemanagement'
-        , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      }
-      , hidden: true
-    , }, ]
-  , },
-
-  // 排课管理
-  {
-    path: '/lesson'
-    , component: Layout
-    , redirect: 'noredirect'
-    , name: 'lesson'
-    , meta: {
-      validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , title: '排课管理'
-      , icon: 'calendar'
-      , role: [ 'supervisor_manager', 'supervisor', 'trail_manager', 'online_manager' ]
-    }
-    , children: [ {
-        path: 'index'
-        , name: 'lessonIndex'
-        , component: () =>
-          import ( '@/views/lesson/index' )
-        , meta: {
-          title: '试听课'
-          , icon: 'experiencecourse'
-          , role: [ 'trail_manager', 'online_manager' ]
-        }
-      , }, {
-        path: 'add'
-        , name: 'lessonAdd'
-        , component: () =>
-          import ( '@/views/lesson/add' )
-        , meta: {
-          title: '新建试听课'
-          , icon: 'new_curriculum'
-        , }
-        , hidden: true
-      , }, {
-        path: 'choose_teacher'
-        , name: 'chooseTeacher'
-        , hidden: true
-        , component: () =>
-          import ( '@/views/lesson/choose_teacher_trial' )
-        , meta: {
-          title: '选择外教'
-          , icon: 'new_curriculum'
-        }
-      , }, {
-        path: 'index_normal'
-        , name: 'lessonIndexNormal'
-        , component: () =>
-          import ( '@/views/lesson/index_normal' )
-        , meta: {
-          title: '正式课'
-          , icon: 'officialcourse'
-          , role: [ 'supervisor_manager', 'supervisor', 'online_manager' ]
-        }
-      , }, {
-        path: 'add_normal'
-        , name: 'lessonAddNormal'
-        , hidden: true
-        , component: () =>
-          import ( '@/views/lesson/add_normal' )
-        , meta: {
-          title: '新建正式课排课'
-          , icon: 'new_curriculum'
-        }
-      , }, {
-        path: 'add_left_normal'
-        , name: 'lessonAddLeftNormal'
-        , hidden: true
-        , component: () =>
-          import ( '@/views/lesson/add_left_normal' )
-        , meta: {
-          title: '补加正式课排课'
-          , icon: 'new_curriculum'
-        }
-      , }
-      // , {
-      //   path: 'schedule'
-      //   , name: 'lessonSchedule'
-      //   , component: () =>
-      //     import ( '@/views/lesson/schedule' )
-      //   , meta: { title: '课表', icon: 'new_curriculum' }
-      // , }
-      , {
-        path: 'timetable_list'
-        , name: 'timetableList'
-        , hidden: true
-        , component: () =>
-          import ( '@/views/lesson/timetable_list' )
-        , meta: {
-          title: '学生课表'
-          , icon: 'new_curriculum'
-        }
-      , }, {
-        path: 'makeup_lesson'
-        , name: 'makeupLesson'
-        , hidden: true
-        , component: () =>
-          import ( '@/views/lesson/makeup_lesson' )
-        , meta: {
-          title: '补课'
-          , icon: 'new_curriculum'
-        }
-      , }
-    , ]
-  , },
-
-  // 课表管理
-  {
-    path: '/lessonSchedule'
-    , component: Layout
-    , redirect: '/lessonSchedule/index'
-    , meta: {
-      validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , title: '课表管理'
-      , role: [ 'supervisor_manager', 'supervisor', 'trail_manager', 'teacher_manager', 'online_manager' ]
-    }
-    , children: [ {
-      path: 'index'
-      , name: 'lessonSchedule'
-      , component: () =>
-        import ( '@/views/lesson/schedule' )
-      , meta: {
-        title: '课表'
-        , icon: 'timetable'
-      , }
-    } ]
-
-  },
-
-  // 监课管理
-  {
-    path: '/monitor'
-    , redirect: '/monitor/list'
-    , component: Layout
-    , name: 'monitor'
-    , meta: {
-      title: '监课管理'
-      , icon: 'eye'
-      , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , role: [ 'supervisor_manager', 'supervisor', 'online_manager' ]
-    }
-    , children: [ {
-      path: 'list'
-      , name: 'monitorList'
-      , component: () =>
-        import ( '@/views/monitor/index' )
-      , meta: {
-        title: '教室列表'
-        , icon: 'classlist'
-      }
-    , }, {
-      path: ''
-      , hidden: true
-    }, ],
-
-  },
-
-  // 督导管理
-  {
-    path: '/supervise'
-    , component: Layout
-    , redirect: '/supervise/index'
-    , name: 'supervise'
-    , meta: {
-      validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , title: '督导管理'
-      , icon: 'usermanage'
-      , role: [ 'supervisor_manager', 'online_manager' ]
-    }
-    , children: [
-      // {
-      //     path: 'index',
-      //     name: 'superviseIndex',
-      //     component: () => import('@/views/supervise/index'),
-      //     meta: {title: '督导建班', icon: 'system'}
-      // },
-      {
-        path: 'assgin'
-        , name: 'superviseAssgin'
-        , component: () =>
-          import ( '@/views/supervise/assgin' )
-        , meta: {
-          title: '督导分配'
-          , icon: 'manage'
-        }
-      , }, {
-        path: 'user'
-        , name: 'superviseUser'
-        , component: () =>
-          import ( '@/views/supervise/user' )
-        , meta: {
-          title: '督导列表'
-          , icon: 'list'
-        }
-      , }
-    , ]
-  , }, // 外教管理
-  {
-    path: '/teacher'
-    , redirect: '/teacher/index'
-    , component: Layout
-    , name: 'teacher'
-    , meta: {
-      title: '老师管理'
-      , icon: 'usermanage'
-      , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , role: [ 'supervisor_manager', 'supervisor', 'trail_manager', 'teacher_manager', 'online_manager','provider' ]
-    }
-    , children: [ {
-      path: 'index'
-      , name: 'teacherList'
-      , component: () =>
-        import ( '@/views/teacher' )
-      , meta: {
-        title: '外教列表'
-        , icon: 'list'
-      }
-    }, {
-      path: 'add'
-      , name: 'addTeacher'
-      , component: () =>
-        import ( '@/views/teacher/add' )
-      , meta: {
-        title: '新建外教'
-        , icon: 'Is_course'
-        , role: [ 'admin', 'provider' ]
-      }
-      , hidden: true
-    , }, {
-      path: 'modify/:id'
-      , name: 'modifyTeacher'
-      , component: () =>
-        import ( '@/views/teacher/add' )
-      , meta: {
-        title: '编辑外教'
-        , icon: 'Is_course'
-        , role: [ 'admin', 'provider' ]
-      }
-      , hidden: true
-    }, {
-      path: 'timetable/:id'
-      , name: 'teacherTimeTable'
-      , component: () =>
-        import ( '@/views/teacher/timetable' )
-      , meta: {
-        title: '外教课表'
-        , icon: 'Is_course'
-      }
-      , hidden: true
-    }, {
-      path: 'course'
-      , name: 'courseCheck'
-      , component: () =>
-        import ( '@/views/teacher/course/index' )
-      , meta: {
-        title: '课时结算'
-        , icon: 'settlement'
-      }
-    , } ]
-  }, // 渠道管理
-  , {
     path: '/resources'
     , component: Layout
     , redirect: '/resources/index'
@@ -470,17 +133,9 @@ export const asyncRouterMap = [
         , icon: 'Is_course'
       }
       , hidden: true
-    , }, {
-      path: 'course'
-      , name: 'privoderCourseCheck'
-      , component: () =>
-        import ( '@/views/teacher/course/index' )
-      , meta: {
-        title: '课时结算'
-        , icon: 'settlement'
-      }
-    } ]
-  , }, // 消息管理
+    , }]
+  },
+  // 消息管理
   {
     path: '/notification'
     , redirect: '/notification'
@@ -522,7 +177,6 @@ export const asyncRouterMap = [
     , }, ],
 
   },
-
   // 版本管理
   {
     path: '/versions'
@@ -582,8 +236,7 @@ export const asyncRouterMap = [
       }
       , hidden: true
     , }, ]
-  , },
-
+  },
   // 用户管理
   {
     path: '/user'
@@ -634,7 +287,8 @@ export const asyncRouterMap = [
         title: '用户信息'
       }
     }]
-  , }, // 日志管理
+  },
+  // 日志管理
   {
     path: '/activity-log'
     , component: Layout
@@ -667,7 +321,8 @@ export const asyncRouterMap = [
       , }
 
     ]
-  , }, // 系统配置
+  },
+  // 系统配置
   {
     path: '/configuration'
     , component: Layout
@@ -743,7 +398,7 @@ export const asyncRouterMap = [
       }
       , hidden: true
     , }, ]
-  , },
+  },
   // 系统工具
   {
     path: '/manage-tools'
@@ -771,15 +426,12 @@ export const asyncRouterMap = [
     }, ],
 
   },
-
-
   // 其他路径
-  , {
+  {
     path: '*'
     , redirect: '/404'
     , hidden: true
   },
-
 ]
 
 

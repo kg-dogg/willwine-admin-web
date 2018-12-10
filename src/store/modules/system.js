@@ -15,7 +15,7 @@ const system = {
 
   mutations: {
     setAuthUserDetail: ( state, user ) => {
-      const roles = ['auth'];
+      const roles = [{name: 'admin'}];
       state.user = { ...user, roles };
       Lockr.set( 'user_detail', user );
       Lockr.set( 'roles', roles );

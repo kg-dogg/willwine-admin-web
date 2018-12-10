@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">Welcom To Willwine后台管理系统</div>
+    <div class="dashboard-text">Welcom To 后台管理系统</div>
     <!-- <MyUploader listType="picture-card"></MyUploader> -->
   </div>
 </template>
