@@ -1,6 +1,19 @@
 <template>
   <div class="my-uploader">
-    <el-upload ref='upload' :action="action" :multiple="multiple" :data="data" :accept="allowExtention" :before-upload="handleBeforeUpload" :on-remove="handleRemove" :http-request="onHttpRequest" :file-list="myFileList" :on-change="handleFileChange" :list-type="listType" :showFileList="showFileList">
+    <el-upload
+      ref='upload'
+      :action="action"
+      :multiple="multiple"
+      :data="data"
+      :accept="allowExtention"
+      :before-upload="handleBeforeUpload"
+      :on-remove="handleRemove"
+      :http-request="onHttpRequest"
+      :file-list="myFileList"
+      :on-change="handleFileChange"
+      :list-type="listType"
+      :showFileList="showFileList"
+    >
       <slot>
         <el-button size="small" type="primary">点击上传</el-button>
       </slot>

@@ -1,8 +1,13 @@
 <template>
   <div class="tinymce-container editor-container" :class="{fullscreen:fullscreen}">
-    <textarea class="tinymce-textarea" :id="tinymceId"></textarea>
+    <textarea class="tinymce-textarea" :id="tinymceId" />
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK" :allowExtention='allowExtention'></editorImage>
+      <editorImage
+        color="#1890ff"
+        class="editor-upload-btn"
+        @successCBK="imageSuccessCBK"
+        :allowExtention='allowExtention'
+      />
     </div>
   </div>
 </template>
@@ -54,6 +59,7 @@ export default {
       return this.global.type.allow_extension;
     },
     audioTypes() {
+      console.log('this.global.type', this.global.type);
       return this.global.type.allow_audio.split(",");
     }
   },
@@ -135,7 +141,11 @@ export default {
       const self = this;
       arr.forEach(v => {
         const ext = _.last(_.split(v.url, "."));
-        if (_.indexOf(this.audioTypes, `.${ext}`) !== -1) {
+        if (_.indexOf(["png", "jpg", "jpeg", "gif"], ext) !== -1) {
+          window.tinymce
+            .get(self.tinymceId)
+            .insertContent(`<img class="wscnph" src="${v.url}" >`);
+        } else if (_.indexOf(this.audioTypes, `.${ext}`) !== -1) {
           // 插入音频
           const data = v.url.split("/");
           const name = data[data.length - 1].split(".")[0];
@@ -169,10 +179,6 @@ export default {
           `;
 
           window.tinymce.get(self.tinymceId).insertContent(template);
-        } else if (_.indexOf(["png", "jpg", "jpeg", "gif"], ext) !== -1) {
-          window.tinymce
-            .get(self.tinymceId)
-            .insertContent(`<img class="wscnph" src="${v.url}" >`);
         } else if (
           _.indexOf(["rm", "3gp", "mov", "avi", "wmv", "flv", "mp4"], ext) !==
           -1

@@ -1,5 +1,6 @@
 import Lockr from 'lockr';
-import { loginByUsername, logout, getUserInfo, check } from '@/api/api'
+// import { loginByUsername, logout, getUserInfo, check } from '@/api/api'
+import { user } from '@/api';
 
 
 const system = {
@@ -107,12 +108,12 @@ const system = {
     LoginByUsername( { commit }, userInfo ) {
       const username = userInfo.username.trim()
       return new Promise( ( resolve, reject ) => {
-        loginByUsername( username, userInfo.password ).then( data => {
-          console.log('LoginByUsername', data);
-          commit( 'setToken', data.data.token )
-          commit( 'setAuthUserDetail', data.data );
+        user.loginByUsername( username, userInfo.password ).then( data => {
+          console.log('LoginByUsername', data.result.data);
+          commit( 'setToken', data.result.data.token )
+          commit( 'setAuthUserDetail', data.result.data );
           //setToken( data.token )
-          axios.defaults.headers.common.Authorization = `Bearer ${data.data.uuid}`;
+          axios.defaults.headers.common.Authorization = `Bearer ${data.result.data.token}`;
           resolve( data )
         } ).catch( error => {
           reject( error )
@@ -125,7 +126,7 @@ const system = {
       // 加快登出的前端速度，用户不需要等待服务端结果，其实直接清除前端的状态就可以
       // 登出接口需要依赖token，接口发出后立即清除前端状态，跳转登录页
       return new Promise( ( resolve, reject ) => {
-        logout().then( () => {
+        user.logout().then( () => {
           resolve()
         } ).catch( error => {
           reject( error )

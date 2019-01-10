@@ -1,7 +1,7 @@
 <template>
   <div class="app-header" :class="{collapse:isCollapse}">
     <router-link to="/" class="logo-wrap">
-      <img class="logo" src="../../../assets/logo.png">
+      <!-- <img class="logo" src="../../../assets/logo.png"> -->
     </router-link>
     <div class="header">
       <span class="header-title">Online Education Management System</span>

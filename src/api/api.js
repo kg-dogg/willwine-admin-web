@@ -245,7 +245,7 @@ export const copyJop = jobIds => http.apiPost('/jobs/copy', {
 /**
  * 上传接口 - URL
  */
-export const globalUploadUrl = `${API_URL}resources`;
+export const globalUploadUrl = `${API_URL}/files`;
 export const globalAvatarUrl = id => `${API_URL}user/profile/avatar/${id}`;
 
 // 展示图片-URL

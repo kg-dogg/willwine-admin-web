@@ -1,4 +1,5 @@
-import { asyncRouterMap, constantRouterMap } from '@/router';
+import { asyncRouterMap } from '@/router';
+import StaticRouterMap from '@/router/static';
 
 function hasPermission( roles, route ) {
   if ( route.meta && route.meta.role ) {
@@ -12,14 +13,14 @@ function hasPermission( roles, route ) {
 
 const permission = {
   state: {
-    routers: constantRouterMap
+    routers: StaticRouterMap
     , addRouters: []
     , hasRouter: false
   , }
   , mutations: {
     SET_ROUTERS: ( state, routers ) => {
       state.addRouters = routers;
-      state.routers = constantRouterMap.concat( routers );
+      state.routers = StaticRouterMap.concat( routers );
     }
     , HAS_ROUTERS: ( state ) => {
       state.hasRouter = true;

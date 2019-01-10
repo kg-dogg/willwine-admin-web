@@ -1,4 +1,4 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 import Lockr from 'lockr';
@@ -6,10 +6,14 @@ import Lockr from 'lockr';
 /* Layout */
 import Layout from '../views/layout/Layout';
 
+import StaticRouterMap from './static';
+import LiquorRoutes from './liquor';
+import AttributeRoutes from './attribute';
+
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
 
-// Vue.use( VueRouter );
+// Vue.use(VueRouter);
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -23,92 +27,26 @@ import Layout from '../views/layout/Layout';
     icon: 'svg-name'             the icon show in the sidebar,
   }
  * */
-export const constantRouterMap = [
-  // { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  {
-    path: '/404'
-    , component: () =>
-      import ( '@/views/errorPage/404' )
-    , hidden: true
-  }, {
-    path: '/401'
-    , component: () =>
-      import ( '@/views/errorPage/401' )
-    , hidden: true
-  }, // 登录注册验证相关
-  {
-    path: '/', // all the routes which can be access without authentication
-    component: () =>
-      import ( '@/views/layout/guest-page' )
-    , meta: {
-      validate: [ 'guest' ]
-    }
-    , hidden: true
-    , children: [ {
-        path: '/'
-        , component: () =>
-          import ( '@/views/login/index' )
-      }, {
-        path: '/login'
-        , component: () =>
-          import ( '@/views/login/index' )
-        , meta: {
-          title: '登陆'
-          , icon: 'Is_course'
-        }
-      }, {
-        path: '/flogin'
-        , component: () =>
-          import ( '@/views/login/flogin' )
-        , meta: {
-          title: '第三方登陆'
-          , icon: 'Is_course'
-        }
-      },
-
-    ]
-  , },
-
-  {
-    path: '/'
-    , component: Layout
-    , redirect: '/dashboard'
-    , name: 'Dashboard'
-    , hidden: true
-    , meta: {
-      validate: [ 'auth' ]
-    }
-    , children: [ {
-      path: 'dashboard'
-      , component: () =>
-        import ( '@/views/dashboard/index' )
-    }, {
-      path: 'home'
-      , component: () =>
-        import ( '@/views/dashboard/index' )
-    } ]
-
-  }
-]
-
 export const asyncRouterMap = [
-  // 渠道管理
+  // 红酒管理
+  LiquorRoutes,
+  AttributeRoutes,
   {
-    path: '/resources'
-    , component: Layout
-    , redirect: '/resources/index'
-    , name: 'resources'
-    , meta: {
-      title: '渠道管理'
-      , icon: 'partner'
-      , validate: [ 'auth', 'two_factor', 'lock_screen' ]
-      , role: [ 'teacher_manager', 'online_manager' ]
+    path: '/resources',
+    component: Layout,
+    redirect: '/resources/index',
+    name: 'resources',
+    meta: {
+      title: '渠道管理',
+      icon: 'partner',
+      validate: [ 'auth', 'two_factor', 'lock_screen' ],
+      role: [ 'teacher_manager', 'online_manager' ]
     }
     , children: [ {
       path: 'index'
       , name: 'resourcesIndex'
       , component: () =>
-        import ( '@/views/resources/index' )
+        import ('@/views/resources/index')
       , meta: {
         title: '渠道'
         , icon: 'list'
@@ -117,7 +55,7 @@ export const asyncRouterMap = [
       path: 'add'
       , name: 'addResources'
       , component: () =>
-        import ( '@/views/resources/add' )
+        import ('@/views/resources/add')
       , meta: {
         title: '新建渠道'
         , icon: 'Is_course'
@@ -127,7 +65,7 @@ export const asyncRouterMap = [
       path: 'modify/:id'
       , name: 'modifyResources'
       , component: () =>
-        import ( '@/views/resources/add' )
+        import ('@/views/resources/add')
       , meta: {
         title: '编辑渠道'
         , icon: 'Is_course'
@@ -151,7 +89,7 @@ export const asyncRouterMap = [
       path: ''
       , name: 'notificationList'
       , component: () =>
-        import ( '@/views/notification/index' )
+        import ('@/views/notification/index')
       , meta: {
         title: '消息模板'
         , icon: 'template'
@@ -160,7 +98,7 @@ export const asyncRouterMap = [
       path: 'add'
       , name: 'addNotification'
       , component: () =>
-        import ( '@/views/notification/add' )
+        import ('@/views/notification/add')
       , meta: {
         title: '创建消息模板'
       }
@@ -169,7 +107,7 @@ export const asyncRouterMap = [
       path: 'modify/:id'
       , name: 'modifyNotification'
       , component: () =>
-        import ( '@/views/notification/add' )
+        import ('@/views/notification/add')
       , meta: {
         title: '编辑消息模板'
       }
@@ -193,7 +131,7 @@ export const asyncRouterMap = [
       path: 'index'
       , name: 'versionsIndex'
       , component: () =>
-        import ( '@/views/versions/index' )
+        import ('@/views/versions/index')
       , meta: {
         title: '查看版本'
         , icon: 'list'
@@ -202,7 +140,7 @@ export const asyncRouterMap = [
       path: 'create'
       , name: 'versionsCreate'
       , component: () =>
-        import ( '@/views/versions/create' )
+        import ('@/views/versions/create')
       , meta: {
         title: '创建版本'
         , icon: 'order-add'
@@ -212,7 +150,7 @@ export const asyncRouterMap = [
       path: 'check'
       , name: 'versionsCheck'
       , component: () =>
-        import ( '@/views/versions/modify' )
+        import ('@/views/versions/modify')
       , meta: {
         title: '版本查看'
       }
@@ -221,7 +159,7 @@ export const asyncRouterMap = [
       path: 'modify'
       , name: 'versionsModify'
       , component: () =>
-        import ( '@/views/versions/modify' )
+        import ('@/views/versions/modify')
       , meta: {
         title: '版本编辑'
       }
@@ -230,7 +168,7 @@ export const asyncRouterMap = [
       path: 'status'
       , name: 'versionsStatus'
       , component: () =>
-        import ( '@/views/versions/status' )
+        import ('@/views/versions/status')
       , meta: {
         title: '状态编辑'
       }
@@ -253,7 +191,7 @@ export const asyncRouterMap = [
       path: 'index'
       , name: 'userLists'
       , component: () =>
-        import ( '@/views/user/list' )
+        import ('@/views/user/list')
       , meta: {
         title: '用户列表'
         , icon: 'list'
@@ -262,7 +200,7 @@ export const asyncRouterMap = [
       path: 'org'
       , name: 'orginazations'
       , component: () =>
-        import ( '@/views/user/orginazation/index' )
+        import ('@/views/user/orginazation/index')
       , meta: {
         title: '组织结构'
         , icon: 'zuzhi'
@@ -271,7 +209,7 @@ export const asyncRouterMap = [
       path: '/user/employee/:id'
       , name: 'employeeBasic'
       , component: () =>
-        import ( '@/views/user/employee/frame' )
+        import ('@/views/user/employee/frame')
       , hidden: true
       , meta: {
         title: '员工信息'
@@ -281,7 +219,7 @@ export const asyncRouterMap = [
       path: '/user/(student|parent)/:id'
       , name: 'userDetail'
       , component: () =>
-        import ( '@/views/user/student/detail' )
+        import ('@/views/user/student/detail')
       , hidden: true
       , meta: {
         title: '用户信息'
@@ -304,7 +242,7 @@ export const asyncRouterMap = [
         path: 'index'
         , name: 'operationLog'
         , component: () =>
-          import ( '@/views/audit/index' )
+          import ('@/views/audit/index')
         , meta: {
           title: '数据变更日志'
           , icon: 'list'
@@ -313,7 +251,7 @@ export const asyncRouterMap = [
         path: 'data'
         , name: 'activityLog'
         , component: () =>
-          import ( '@/views/activity-log/index' )
+          import ('@/views/activity-log/index')
         , meta: {
           title: '后台操作日志'
           , icon: 'list'
@@ -338,7 +276,7 @@ export const asyncRouterMap = [
       path: 'basic'
       , name: 'configurationIndex'
       , component: () =>
-        import ( '@/views/configuration/basic/index' )
+        import ('@/views/configuration/basic/index')
       , meta: {
         title: '基础'
         , icon: 'notepad'
@@ -347,7 +285,7 @@ export const asyncRouterMap = [
       path: 'mail'
       , name: 'configurationMail'
       , component: () =>
-        import ( '@/views/email-template/index' )
+        import ('@/views/email-template/index')
       , meta: {
         title: '邮件模板'
         , icon: 'message'
@@ -356,7 +294,7 @@ export const asyncRouterMap = [
       path: 'mail/:id/edit'
       , name: 'configurationMailEdit'
       , component: () =>
-        import ( '@/views/email-template/edit' )
+        import ('@/views/email-template/edit')
       , meta: {
         title: '编辑邮件模板'
       }
@@ -365,7 +303,7 @@ export const asyncRouterMap = [
       path: 'mail/create'
       , name: 'configurationMailCreate'
       , component: () =>
-        import ( '@/views/email-template/edit' )
+        import ('@/views/email-template/edit')
       , meta: {
         title: '新增邮件模板'
       }
@@ -374,7 +312,7 @@ export const asyncRouterMap = [
       path: 'role'
       , name: 'configurationRole'
       , component: () =>
-        import ( '@/views/configuration/role/index' )
+        import ('@/views/configuration/role/index')
       , meta: {
         title: '角色信息'
         , icon: 'usermanage'
@@ -383,7 +321,7 @@ export const asyncRouterMap = [
       path: 'permission'
       , name: 'configurationPermission'
       , component: () =>
-        import ( '@/views/configuration/permission/assign' )
+        import ('@/views/configuration/permission/assign')
       , meta: {
         title: '权限分配'
         , icon: 'authority'
@@ -392,7 +330,7 @@ export const asyncRouterMap = [
       path: '/configuration/permission/assign'
       , name: 'configurationPermissionAssign'
       , component: () =>
-        import ( '@/views/configuration/permission/index' )
+        import ('@/views/configuration/permission/index')
       , meta: {
         title: '权限管理'
       }
@@ -415,7 +353,7 @@ export const asyncRouterMap = [
       path: 'cosApiTools'
       , name: 'viewCosApiDetail'
       , component: () =>
-        import ( '@/views/manage-tools/cos_api_tool' )
+        import ('@/views/manage-tools/cos_api_tool')
       , meta: {
         title: 'COS接口工具'
         , icon: 'classlist'
@@ -435,96 +373,92 @@ export const asyncRouterMap = [
 ]
 
 
-const router = new VueRouter( {
-  routes: constantRouterMap
-  , linkActiveClass: 'active'
-  , mode: 'history'
-  , scrollBehavior( to, from, savedPosition ) {
-    if ( savedPosition ) {
+const router = new VueRouter({
+  routes: StaticRouterMap,
+  linkActiveClass: 'active',
+  mode: 'history',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
       return savedPosition;
     }
     return {
-      x: 0
-      , y: 0
+      x: 0,
+      y: 0,
     };
-  }
-, } );
+  },
+});
 
-router.beforeEach( ( to, from, next ) => {
+router.beforeEach((to, from, next) => {
   // 刷新时重新请求全局数据
-  if ( Object.keys( store.state.global.param ).length <= 0 ) {
-    store.dispatch( 'Courseglobaldata' );
-    store.dispatch( 'systemCheck' );
-    store.dispatch( 'UploadAllowedType' );
+  if (Object.keys(store.state.global.param).length <= 0) {
+    store.dispatch('Courseglobaldata');
+    store.dispatch('systemCheck');
+    store.dispatch('UploadAllowedType');
   }
   // For force logout
   // store.dispatch('resetAuthUserDetail');
   helper.check()
-    .then( () => {
+    .then(() => {
       // Initialize toastr notification
       helper.notification();
       // Check for IP Restriction; If restricted IP found, redirect to "/ip-restricted" route
-      if ( helper.getConfig( 'ip_filter' ) && localStorage.getItem( 'ip_restricted' ) && to.fullPath !== '/ip-restricted' ) {
-        return next( {
-          path: '/ip-restricted'
-        } );
+      if (helper.getConfig('ip_filter') && localStorage.getItem('ip_restricted') && to.fullPath !== '/ip-restricted') {
+        return next({ path: '/ip-restricted' });
       }
-      if ( to.matched.length === 0 && !helper.isAuth() ) {
-        toastr.error( '该页面需要登录用户才能访问!' );
-        return next( {
-          path: '/login'
-        } );
+      if (to.matched.length === 0 && !helper.isAuth()) {
+        toastr.error('该页面需要登录用户才能访问!');
+        return next({ path: '/login' });
       }
-      if ( to.matched.some( m => m.meta.validate ) ) {
-        const m = to.matched.find( item => item.meta.validate );
+      if (to.matched.some(m => m.meta.validate)) {
+        const m = to.matched.find(item => item.meta.validate);
 
         // 需要验证的页面
-        if ( m.meta.validate.indexOf( 'auth' ) > -1 ) {
-          if ( !helper.isAuth() ) {
-            Lockr.rm( 'roles' );
-            store.dispatch( 'ResetRoutes' );
-            toastr.error( '该页面需要登录用户才能访问!' );
-            return next( {
+        if (m.meta.validate.indexOf('auth') > -1) {
+          if (!helper.isAuth()) {
+            Lockr.rm('roles');
+            store.dispatch('ResetRoutes');
+            toastr.error('该页面需要登录用户才能访问!');
+            return next({
               path: '/login'
-            } );
+            });
           }
         }
 
         // 不需要验证的页面
-        // if ( m.meta.validate.indexOf( 'guest' ) > -1 ) {
-        //   if ( helper.isAuth() ) {
-        //     toastr.error( '该页面需要游客身份才能访问!' );
-        //     return next( {
+        // if (m.meta.validate.indexOf('guest') > -1) {
+        //   if (helper.isAuth()) {
+        //     toastr.error('该页面需要游客身份才能访问!');
+        //     return next({
         //       path: '/dashboard'
-        //     } );
+        //     });
         //   }
         // }
       }
       // 生成路由
-      let roles = Lockr.get( 'roles' );
+      let roles = Lockr.get('roles');
       roles = roles ? roles : [];
-      if ( !store.getters.hasRouter && roles && roles.length > 0 ) {
-        store.dispatch( 'GenerateRoutes', {
+      if (!store.getters.hasRouter && roles && roles.length > 0) {
+        store.dispatch('GenerateRoutes', {
           roles
-        } ).then( () => { // 生成可访问的路由表
-          router.addRoutes( store.getters.addRouters ) // 动态添加可访问路由表
-          store.dispatch( 'SetRoutes' );
-        } )
+        }).then(() => { // 生成可访问的路由表
+          router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+          store.dispatch('SetRoutes');
+        })
       }
       return next();
-    } )
-    .catch( ( e ) => {
-      console.log( e )
-      console.log( '路由check异常,转到login...' );
-      store.dispatch( 'resetAuthUserDetail' );
-      store.dispatch( 'ResetRoutes' );
-      if ( to.path === '/login' ) {
+    })
+    .catch((e) => {
+      console.log(e)
+      console.log('路由check异常,转到login...');
+      store.dispatch('resetAuthUserDetail');
+      store.dispatch('ResetRoutes');
+      if (to.path === '/login') {
         return next();
       }
-      return next( {
+      return next({
         path: '/login'
-      } );
-    } );
-} );
+      });
+    });
+});
 
 export default router;

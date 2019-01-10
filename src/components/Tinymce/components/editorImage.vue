@@ -1,11 +1,24 @@
 <template>
   <div class="upload-container editorImage">
-    <el-button icon='el-icon-upload' size="mini" :style="{background:color,borderColor:color}" @click=" dialogVisible=true" type="primary">上传本地图片/音频/视频
+    <el-button icon='el-icon-upload' size="mini" :style="{background:color,borderColor:color}" @click=" dialogVisible=true" type="primary">上传本地图片
     </el-button>
     <el-dialog append-to-body :visible.sync="dialogVisible">
-      <el-upload class="editor-slide-upload" :action="upload_url" :multiple="true" :file-list="fileList" :headers="myHeaders" :show-file-list="true" list-type="picture-card" :on-remove="handleRemove" :data="upLoadData" :on-success="handleSuccess" :before-upload="beforeUpload" :on-error="handleError" accept='audio/*,video/*,image/*,.mp4'>
+      <el-upload
+        class="editor-slide-upload"
+        :action="upload_url"
+        :multiple="true"
+        :file-list="fileList"
+        :headers="myHeaders"
+        :show-file-list="true"
+        list-type="picture-card"
+        :on-remove="handleRemove"
+        :data="upLoadData"
+        :on-success="handleSuccess"
+        :before-upload="beforeUpload"
+        :on-error="handleError"
+        accept='image/*'
+      >
         <el-button size="small" type="primary">点击上传</el-button>
-        </el-progress>
       </el-upload>
       <el-button style="margin-top: 10px" @click="dialogVisible = false">取 消</el-button>
       <el-button style="margin-top: 10px" type="primary" @click="handleSubmit">确 定</el-button>
@@ -87,7 +100,7 @@ export default {
     },
     handleSuccess(response, file) {
       const uid = file.uid;
-      this.listObj[uid].url = response.data.resources_path;
+      this.listObj[uid].url = response.result.data;
       this.listObj[uid].hasSuccess = true;
       if (file.cover_url) {
         this.listObj[uid].cover_url = file.cover_url;
@@ -98,7 +111,7 @@ export default {
     },
     handleRemove(file) {
       const uid = file.uid;
-      const url = file.response && file.response.data.resources_path;
+      const url = file.response && file.response.result.data;
       const objKeyArr = Object.keys(this.listObj);
 
       // 同步删除 fileList
@@ -286,8 +299,8 @@ export default {
         this.$set(this.fileList, targetIndex, file);
 
         let mockResponse = {
-          data: {
-            resources_path: `${uploadInfo.file.url}/${uploadInfo.object}`
+          result: {
+            data: `${uploadInfo.file.url}/${uploadInfo.object}`
           }
         };
 
