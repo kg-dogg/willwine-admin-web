@@ -19,7 +19,7 @@
             <div class="pagination" >
                 <el-pagination background layout="prev, pager, next" :page-size="pagination.per_page" :current-page = "pagination.current_page"  @current-change ="page" :total="pagination.total"></el-pagination>
             </div>
-         </el-card>
+        </el-card>
     </div>
 </template>
 

@@ -25,7 +25,7 @@
       </el-col>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">创建</el-button>
+      <el-button type="primary" @click="save">创建</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -54,12 +54,12 @@
         const { code, data } = await attribute.productCategory.get();
         code === 200 && (this.parent = data);
       },
-      async onSubmit() {
+      async save() {
         const { code, msg } = await attribute.productCategory.create(this.form);
-        if ( code === 200 ) {
+        if (code === 200) {
           this.$router.push({ name: "productCategory" });
         } else {
-          this.$message.error(msg.original.code);
+          this.$message.error(msg);
         }
       },
     }

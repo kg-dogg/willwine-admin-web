@@ -138,7 +138,7 @@ const apiMethods = {
 
   apiDelete( url, data ) {
     return new Promise( ( resolve, reject ) => {
-      axios.delete( url, data ).then(
+      axios.delete( url, { data } ).then(
         ( response ) => {
           if ( _.has( response, 'data' ) ) {
             resolve( response.data );

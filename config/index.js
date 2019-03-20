@@ -16,6 +16,7 @@ const getConfig = () => {
         env: require('./' + process.env.VER + '.env')
       }
     }
+
     return {
       env: result.parsed
     }

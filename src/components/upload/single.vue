@@ -6,6 +6,7 @@
       list-type="picture-card"
       :action="uploadUrl"
       :headers="headers"
+      :data="data"
       :limit="1"
       accept='image/*'
       :on-preview="handlePictureCardPreview"
@@ -21,9 +22,37 @@
 </template>
 
 <script>
-import { globalUploadUrl } from "../../api/api";
+import { fileUpload } from "../../api";
 export default {
   name: "single-uploader",
+  props: {
+    data: {
+      type: Object,
+      default() {
+        return { dir: '' };
+      }
+    },
+    editImage: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    onSuccess: {
+      type: Function,
+      default() {
+        return true;
+      }
+    },
+  },
+  data() {
+    return {
+      dialogImageUrl: '',
+      dialogVisible: false,
+      imageList: [],
+      uploadUrl: fileUpload.globalUploadUrl,
+    }
+  },
   computed: {
     headers() {
       return { Authorization: `Bearer ${lockr.get('auth_token')}` };
@@ -32,17 +61,15 @@ export default {
       return this.imageList.length > 0;
     },
   },
-  data() {
-    return {
-      dialogImageUrl: '',
-      dialogVisible: false,
-      imageList: [],
-      uploadUrl: globalUploadUrl,
+  watch: {
+    editImage: {
+      handler(val) {
+        this.imageList = val.url ? [val] : [];
+      }
     }
   },
   methods: {
     handleRemove(file, fileList) {
-      console.log(file, fileList);
       this.imageList.pop();
     },
     handlePictureCardPreview(file) {
@@ -52,11 +79,12 @@ export default {
     handleUploadSuccess(res, file) {
       this.imageList.push({
         name: file.name,
-        file,
-        id: res.result.data,
+        // file,
+        // id: res.result.data,
         url: res.result.data,
-        uid: file.uid
+        // uid: file.uid
       });
+      this.onSuccess(this.imageList[0]);
     },
   }
 }

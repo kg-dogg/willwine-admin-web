@@ -3,6 +3,7 @@
     <el-upload
       :action="uploadUrl"
       :headers="headers"
+      :data="data"
       :on-success="handleUploadSuccess"
       :on-remove="handleRemove"
       :file-list="imageList"
@@ -17,9 +18,29 @@
 </template>
 
 <script>
-import { globalUploadUrl } from "../../api/api";
+import { fileUpload } from "../../api";
 export default {
   name: "multiple-uploader",
+  props: {
+    data: {
+      type: Object,
+      default() {
+        return { dir: '' };
+      }
+    },
+    editImageList: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    onSuccess: {
+      type: Function,
+      default() {
+        return true;
+      }
+    },
+  },
   computed: {
     headers() {
       return { Authorization: `Bearer ${lockr.get('auth_token')}` };
@@ -28,17 +49,25 @@ export default {
   data() {
     return {
       imageList: [],
-      uploadUrl: globalUploadUrl,
-      fileDataList: [],
+      uploadUrl: fileUpload.globalUploadUrl,
+    }
+  },
+  watch: {
+    editImageList: {
+      handler(val) {
+        this.imageList = val.length ? val : [];
+        console.log('watch imageList', this.imageList);
+      }
     }
   },
   methods: {
     handleRemove(file, fileList) {
-      const removeIndex = this.fileDataList.indexOf(file.response.result.data);
-      this.fileDataList.splice(removeIndex, 1);
+      this.imageList = fileList;
+      this.onSuccess(this.imageList);
     },
-    handleUploadSuccess(res, file) {
-      this.fileDataList.push(res.result.data);
+    handleUploadSuccess(res, file, fileList) {
+      this.imageList = fileList;
+      this.onSuccess(this.imageList);
     },
   }
 }

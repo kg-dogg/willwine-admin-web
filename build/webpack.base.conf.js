@@ -8,7 +8,7 @@ const vueLoaderConfig = require( './vue-loader.conf' )
 function resolve( dir ) {
   return path.join( __dirname, '..', dir )
 }
-
+console.log();
 console.log('环境变量：',config.env)
 
 const createLintingRule = () => ( {
