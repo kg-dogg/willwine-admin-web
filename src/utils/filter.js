@@ -1,7 +1,7 @@
 /**
  * 公共的filter方法
  *
- * @author wzx <zhaoxuanwang@rdchina.net>
+ * @author 黄硕 <kg_dogg@126.com>"
  */
 import Vue from 'vue';
 
