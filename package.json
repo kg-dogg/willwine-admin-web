@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "autoprefixer": "7.2.3",
-    "axios": "^0.18",
+    "axios": "^0.21",
     "axios-mock-adapter": "^1.15.0",
     "babel-core": "6.26.0",
     "babel-eslint": "^8.2.1",
