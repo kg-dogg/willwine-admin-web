@@ -76,7 +76,7 @@
     "laravel-mix": "^2.1.14",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "mockjs": "^1.0.1-beta3",
     "node-less": "^1.0.0",
     "node-notifier": "^5.1.2",
